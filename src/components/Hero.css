@@ -1,0 +1,314 @@
+/* ============================================================
+   首屏
+   ============================================================ */
+
+.hero {
+  width: min(1320px, 100% - 40px);
+  margin: 0 auto;
+  padding: 54px 0 30px;
+}
+
+.hero-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.06fr) minmax(0, 1fr);
+  gap: 60px;
+  align-items: center;
+}
+
+/* ---------- 文案 ---------- */
+
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  animation: rise-in 720ms var(--ease-out) both;
+}
+
+.hero-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.hero-brand-mark {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+  font-family: var(--font-math);
+  font-size: 1.42rem;
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1;
+  color: var(--ink-strong);
+  padding: 5px 11px;
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  box-shadow: var(--shadow-sm);
+}
+
+.hero-brand-mark .mth:first-child {
+  color: var(--eps);
+}
+.hero-brand-mark .mth:last-child {
+  color: var(--del);
+}
+
+.hero-brand-slash {
+  color: var(--rule-strong);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.9em;
+}
+
+.hero-brand-text {
+  font-size: 0.83rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.hero-title {
+  font-size: var(--step-4);
+  line-height: 1.08;
+  letter-spacing: -0.032em;
+  text-wrap: balance;
+}
+
+.hero-title-line {
+  display: block;
+}
+
+.hero-title-em {
+  font-style: italic;
+  color: var(--eps);
+  position: relative;
+  white-space: nowrap;
+}
+
+.hero-title-em::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.04em;
+  height: 0.085em;
+  background: var(--eps);
+  opacity: 0.22;
+  border-radius: var(--r-pill);
+}
+
+.hero-lede {
+  font-size: clamp(1rem, 0.94rem + 0.3vw, 1.1rem);
+  line-height: 1.72;
+  color: var(--ink-muted);
+  max-width: 54ch;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-top: 2px;
+}
+
+.hero-actions .btn {
+  height: 44px;
+  padding: 0 20px;
+  font-size: 0.9rem;
+}
+
+/* ---------- 事实条 ---------- */
+
+.hero-facts {
+  list-style: none;
+  display: flex;
+  gap: 0;
+  margin: 8px 0 0;
+  padding: 0;
+  border-top: 1px solid var(--rule);
+  flex-wrap: wrap;
+}
+
+.hero-facts li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 14px 20px 14px 0;
+  margin-right: 20px;
+  border-right: 1px solid var(--rule);
+  padding-right: 20px;
+}
+
+.hero-facts li:last-child {
+  border-right: none;
+}
+
+.hero-fact-k {
+  display: grid;
+  place-items: center;
+  font-size: 1.24rem;
+  font-weight: 700;
+  min-width: 22px;
+}
+
+.hero-fact-k svg {
+  width: 17px;
+  height: 17px;
+  color: var(--warn);
+}
+
+.hero-fact-v {
+  font-size: 0.79rem;
+  color: var(--ink-muted);
+  line-height: 1.4;
+}
+
+/* ---------- 图形 ---------- */
+
+.hero-art {
+  animation: rise-in 900ms 120ms var(--ease-out) both;
+}
+
+.hero-art-frame {
+  border-radius: var(--r-lg);
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-viz {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.hero-art-caption {
+  padding: 12px 18px;
+  border-top: 1px solid var(--rule);
+  background: var(--surface-sunken);
+  font-size: 0.77rem;
+  color: var(--ink-muted);
+  text-align: center;
+}
+
+/* ---------- 图形内部元素 ---------- */
+
+.hv-grid line {
+  stroke: var(--grid);
+  stroke-width: 1;
+}
+
+.hv-axis {
+  stroke: var(--rule-strong);
+  stroke-width: 1.4;
+}
+
+.hv-eps {
+  transition: none;
+}
+
+.hv-eps-line {
+  stroke: var(--eps);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 4;
+  opacity: 0.85;
+}
+
+.hv-del {
+  fill: var(--del-band);
+}
+
+.hv-del-line {
+  stroke: var(--del);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 4;
+  opacity: 0.85;
+}
+
+.hv-intersect {
+  fill: var(--ok);
+  fill-opacity: 0.1;
+  stroke: var(--ok);
+  stroke-width: 1.6;
+}
+
+.hv-curve {
+  fill: none;
+  stroke: var(--curve);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+}
+
+.hv-curve-halo {
+  fill: none;
+  stroke: var(--curve);
+  stroke-width: 7;
+  opacity: 0.08;
+}
+
+.hv-hole {
+  fill: var(--surface);
+  stroke: var(--target);
+  stroke-width: 2.4;
+}
+
+.hv-lab {
+  font-family: var(--font-math);
+  font-size: 19px;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.hv-lab-eps {
+  fill: var(--eps-deep);
+}
+.hv-lab-del {
+  fill: var(--del-deep);
+}
+.hv-lab-a {
+  fill: var(--ink-strong);
+}
+
+/* ---------- 响应式 ---------- */
+
+@media (max-width: 1080px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+    gap: 42px;
+  }
+  .hero-art {
+    max-width: 560px;
+  }
+}
+
+@media (max-width: 860px) {
+  .hero {
+    width: calc(100% - 28px);
+    padding-top: 36px;
+  }
+  .hero-title {
+    letter-spacing: -0.026em;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero-facts li {
+    border-right: none;
+    padding-right: 0;
+    margin-right: 0;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-facts li:last-child {
+    border-bottom: none;
+  }
+  .hero-actions .btn {
+    height: 42px;
+  }
+}

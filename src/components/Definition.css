@@ -1,0 +1,407 @@
+/* ============================================================
+   定义拆解
+   ============================================================ */
+
+.def {
+  width: min(1180px, 100% - 40px);
+  margin: 0 auto;
+  padding: 96px 0 24px;
+}
+
+.def-head {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  max-width: 760px;
+  margin-bottom: 36px;
+}
+
+.def-title {
+  font-size: var(--step-3);
+  letter-spacing: -0.025em;
+}
+
+.def-title-em {
+  font-style: italic;
+  color: var(--del-deep);
+}
+
+.def-lede {
+  font-size: var(--step-0);
+  color: var(--ink-muted);
+  line-height: 1.7;
+}
+
+/* ---------- 步骤轨道 ---------- */
+
+.def-rail {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+  margin: 0 0 26px;
+  padding: 0;
+  position: relative;
+}
+
+.def-node {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+  padding: 13px 12px 14px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  text-align: left;
+  position: relative;
+  transition:
+    border-color var(--t-fast) var(--ease-out),
+    background var(--t-fast) var(--ease-out),
+    box-shadow var(--t-fast) var(--ease-out),
+    transform var(--t-fast) var(--ease-out);
+}
+
+.def-node:hover {
+  border-color: var(--rule-strong);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.def-node::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 3px;
+  border-radius: var(--r-pill);
+  background: transparent;
+  transition: background var(--t-fast) var(--ease-out);
+}
+
+.def-node.is-on {
+  border-color: var(--ink-strong);
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.def-node.is-on::after {
+  background: var(--ink-strong);
+}
+
+.def-node.is-done {
+  background: var(--surface-sunken);
+}
+
+.def-node.is-done::after {
+  background: var(--rule-strong);
+}
+
+.def-node-num {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+}
+
+.def-node.is-on .def-node-num {
+  color: var(--ink-strong);
+}
+
+.def-node-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.36;
+  color: var(--ink-muted);
+  letter-spacing: -0.005em;
+}
+
+.def-node.is-on .def-node-label {
+  color: var(--ink-strong);
+}
+
+/* ---------- 详情面板 ---------- */
+
+.def-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 28px;
+  align-items: end;
+  padding: 32px 34px;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+  animation: rise-in var(--t-slow) var(--ease-out);
+}
+
+.def-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+}
+
+.def-panel.def-voice-ok::before {
+  background: linear-gradient(90deg, var(--ok), transparent 72%);
+}
+.def-panel.def-voice-eps::before {
+  background: linear-gradient(90deg, var(--eps), transparent 72%);
+}
+.def-panel.def-voice-del::before {
+  background: linear-gradient(90deg, var(--del), transparent 72%);
+}
+
+.def-panel-main {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  min-width: 0;
+}
+
+.def-voice-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.def-voice {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.71rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+}
+
+.def-voice svg {
+  width: 13px;
+  height: 13px;
+}
+
+.def-voice-ok {
+  color: var(--ok);
+  background: var(--ok-soft);
+}
+.def-voice-eps {
+  color: var(--eps-deep);
+  background: var(--eps-soft);
+}
+.def-voice-del {
+  color: var(--del-deep);
+  background: var(--del-soft);
+}
+
+.def-step-count {
+  font-size: 0.74rem;
+  color: var(--ink-faint);
+  letter-spacing: 0.04em;
+}
+
+.def-panel-title {
+  font-size: var(--step-2);
+  letter-spacing: -0.022em;
+}
+
+.def-formula {
+  padding: 18px 22px;
+  border-radius: var(--r-md);
+  background: var(--surface-sunken);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--rule-strong);
+}
+
+.def-formula p {
+  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.22rem);
+  line-height: 1.9;
+  color: var(--ink-strong);
+}
+
+.def-body {
+  font-size: var(--step-0);
+  line-height: 1.76;
+  color: var(--ink);
+  max-width: 68ch;
+}
+
+.def-visual {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 13px 16px;
+  border-radius: var(--r-sm);
+  background: linear-gradient(90deg, var(--del-soft), transparent 80%);
+  border: 1px dashed var(--del-line);
+}
+
+.def-visual-tag {
+  flex: none;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--del-deep);
+  padding: 2px 7px;
+  border-radius: var(--r-xs);
+  background: var(--surface);
+  border: 1px solid var(--del-line);
+  margin-top: 1px;
+}
+
+.def-visual p {
+  font-size: 0.83rem;
+  line-height: 1.62;
+  color: var(--ink-muted);
+}
+
+.def-panel-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.def-dots {
+  display: flex;
+  gap: 5px;
+}
+
+.def-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--rule-strong);
+  transition:
+    background var(--t-fast) var(--ease-out),
+    transform var(--t-fast) var(--ease-out);
+}
+
+.def-dot.is-on {
+  background: var(--ink-strong);
+  transform: scale(1.5);
+}
+
+/* ---------- 完整定义原文 ---------- */
+
+.def-statement {
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr);
+  gap: 34px;
+  align-items: start;
+  margin-top: 26px;
+  padding: 30px 34px;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--rule);
+  background:
+    linear-gradient(180deg, rgba(200, 56, 79, 0.035), transparent 40%),
+    var(--surface);
+  box-shadow: var(--shadow-md);
+}
+
+.def-statement-side {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  position: sticky;
+  top: 90px;
+}
+
+.def-statement-note {
+  font-size: 0.79rem;
+  color: var(--ink-faint);
+  line-height: 1.6;
+}
+
+.def-quote {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.def-quote p {
+  font-size: var(--step-1);
+  line-height: 1.85;
+  color: var(--ink);
+}
+
+.def-quote-eq {
+  padding: 14px 18px;
+  border-radius: var(--r-sm);
+  background: var(--surface-sunken);
+  border: 1px solid var(--rule);
+  text-align: center;
+  font-size: var(--step-1);
+}
+
+.def-quote-final {
+  border-left: 3px solid var(--ink-strong);
+  background: var(--surface-sunken);
+}
+
+/* ---------- 响应式 ---------- */
+
+@media (max-width: 1040px) {
+  .def-rail {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .def-statement {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .def-statement-side {
+    position: static;
+  }
+}
+
+@media (max-width: 860px) {
+  .def {
+    width: calc(100% - 28px);
+    padding-top: 68px;
+  }
+  .def-panel {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    padding: 24px 22px;
+    align-items: stretch;
+  }
+  .def-panel-nav {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    border-top: 1px solid var(--rule);
+    padding-top: 18px;
+  }
+}
+
+@media (max-width: 560px) {
+  .def-rail {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .def-node {
+    padding: 10px 10px 11px;
+  }
+  .def-node-label {
+    font-size: 0.73rem;
+  }
+  .def-panel {
+    padding: 20px 17px;
+  }
+  .def-statement {
+    padding: 22px 18px;
+  }
+  .def-visual {
+    flex-direction: column;
+    gap: 8px;
+  }
+}

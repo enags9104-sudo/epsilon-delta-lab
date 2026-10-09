@@ -1,0 +1,385 @@
+/* ============================================================
+   ε-δ 交互画布
+   ============================================================ */
+
+.edc-wrap {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+.edc-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  touch-action: none;
+  cursor: default;
+  user-select: none;
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(31, 111, 139, 0.045), transparent 62%),
+    var(--surface);
+}
+
+.edc-svg[data-dragging='eps'],
+.edc-svg[data-dragging='del'] {
+  cursor: grabbing;
+}
+
+/* ---------- 网格与坐标轴 ---------- */
+
+.edc-grid line {
+  stroke: var(--grid);
+  stroke-width: 1;
+}
+
+.edc-axis line {
+  stroke: var(--rule-strong);
+  stroke-width: 1.5;
+}
+
+/* ---------- ε / δ 带 ---------- */
+
+.edc-band-line {
+  stroke: var(--band-color);
+  stroke-width: 1.6;
+  stroke-dasharray: 7 5;
+  opacity: 0.85;
+}
+
+.edc-band-eps.is-hot .edc-band-line {
+  stroke-width: 2.4;
+  stroke-dasharray: none;
+}
+
+.edc-band-del .edc-band-line {
+  stroke-width: 1.6;
+}
+
+.edc-band-del.is-hot .edc-band-line {
+  stroke-width: 2.6;
+  stroke-dasharray: none;
+}
+
+.edc-band-del rect {
+  transition: fill var(--t-base) var(--ease-out);
+}
+
+/* ---------- 交集方块 ---------- */
+
+.edc-intersect {
+  fill: var(--band-color);
+  fill-opacity: 0.1;
+  stroke: var(--band-color);
+  stroke-width: 1.8;
+  stroke-dasharray: 6 5;
+  transition:
+    fill-opacity var(--t-base) var(--ease-out),
+    stroke var(--t-base) var(--ease-out);
+}
+
+.edc-intersect.is-pass {
+  fill-opacity: 0.19;
+  stroke-dasharray: none;
+  animation: pulse-soft 2.6s var(--ease-in-out) infinite;
+}
+
+.edc-intersect.is-fail {
+  fill-opacity: 0.06;
+}
+
+/* ---------- 曲线 ---------- */
+
+.edc-curve {
+  fill: none;
+  stroke: var(--curve);
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.edc-curve-halo {
+  fill: none;
+  stroke: var(--curve);
+  stroke-width: 8;
+  opacity: 0.09;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ---------- 目标点 ---------- */
+
+.edc-dot-solid {
+  fill: var(--target);
+  stroke: var(--surface);
+  stroke-width: 2;
+}
+
+.edc-dot-hollow {
+  fill: var(--surface);
+  stroke: var(--target);
+  stroke-width: 2.4;
+}
+
+.edc-dot-hollow-ring {
+  fill: none;
+  stroke: var(--target);
+  stroke-width: 1;
+  opacity: 0.28;
+}
+
+/* ---------- 引导线 ---------- */
+
+.edc-guide line {
+  stroke: var(--rule-strong);
+  stroke-width: 1;
+  opacity: 0.85;
+}
+
+/* ---------- 刻度和标注 ---------- */
+
+.edc-tick-label text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  fill: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.edc-marker-label text {
+  font-family: var(--font-math);
+  font-size: 15px;
+  font-style: italic;
+  fill: var(--ink-strong);
+  font-weight: 600;
+}
+
+.edc-mark-a line,
+.edc-mark-l line {
+  stroke: var(--ink-strong);
+  stroke-width: 1.4;
+}
+
+.edc-argmax line {
+  stroke: var(--ink-faint);
+  stroke-width: 1;
+}
+
+/* ---------- 括号标注 ---------- */
+
+.edc-bracket path {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.edc-bracket-eps path {
+  stroke: var(--eps);
+}
+.edc-bracket-eps text {
+  font-family: var(--font-math);
+  font-size: 24px;
+  font-style: italic;
+  fill: var(--eps-deep);
+  font-weight: 700;
+}
+
+.edc-bracket-del path {
+  stroke: var(--del);
+}
+.edc-bracket-del text {
+  font-family: var(--font-math);
+  font-size: 24px;
+  font-style: italic;
+  fill: var(--del-deep);
+  font-weight: 700;
+}
+
+/* ============================================================
+   拖拽把手
+   ============================================================ */
+
+.edc-handle {
+  cursor: grab;
+}
+
+/* 透明命中区：扩大可拖拽范围，同时不遮挡视觉 */
+.edc-handle-hit {
+  fill: transparent;
+  stroke: none;
+  pointer-events: all;
+}
+
+.edc-handle-dot {
+  fill: var(--surface);
+  stroke-width: 2.6;
+  transition:
+    r var(--t-fast) var(--ease-out),
+    fill var(--t-fast) var(--ease-out);
+}
+
+.edc-handle-spine {
+  stroke-width: 2;
+  stroke-linecap: round;
+  opacity: 0.6;
+}
+
+.edc-handle-eps .edc-handle-dot,
+.edc-handle-eps .edc-handle-spine {
+  stroke: var(--eps);
+}
+.edc-handle-eps .edc-handle-dot {
+  fill: var(--eps-soft);
+}
+
+.edc-handle-del .edc-handle-dot,
+.edc-handle-del .edc-handle-spine {
+  stroke: var(--del);
+}
+.edc-handle-del .edc-handle-dot {
+  fill: var(--del-soft);
+}
+
+.edc-handle:hover .edc-handle-dot,
+.edc-handle:focus-visible .edc-handle-dot,
+.edc-handle.is-drag .edc-handle-dot {
+  r: 11;
+}
+
+.edc-handle-eps:hover .edc-handle-dot,
+.edc-handle-eps.is-drag .edc-handle-dot {
+  fill: var(--eps);
+}
+.edc-handle-del:hover .edc-handle-dot,
+.edc-handle-del.is-drag .edc-handle-dot {
+  fill: var(--del);
+}
+
+.edc-handle.is-locked .edc-handle-dot {
+  fill: var(--del);
+  stroke-dasharray: none;
+}
+
+.edc-handle-txt {
+  font-family: var(--font-math);
+  font-size: 17px;
+  font-style: italic;
+  font-weight: 700;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.edc-handle-eps .edc-handle-txt {
+  fill: var(--eps-deep);
+}
+.edc-handle-del .edc-handle-txt {
+  fill: var(--del-deep);
+}
+
+/* ============================================================
+   判读浮层
+   ============================================================ */
+
+.edc-readout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 13px 20px;
+  border-top: 1px solid var(--rule);
+  background: var(--surface-sunken);
+  transition: background var(--t-base) var(--ease-out);
+}
+
+.edc-readout[data-state='pass'] {
+  background: linear-gradient(90deg, var(--ok-soft), transparent 70%), var(--surface-sunken);
+}
+
+.edc-readout[data-state='fail'] {
+  background: linear-gradient(90deg, var(--eps-soft), transparent 70%), var(--surface-sunken);
+}
+
+.edc-verdict {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+
+.edc-verdict::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: none;
+  box-shadow: 0 0 0 3px currentColor;
+  opacity: 0.35;
+}
+
+.edc-verdict-pass {
+  color: var(--ok);
+}
+.edc-verdict-pass::before {
+  background: var(--ok);
+  box-shadow: 0 0 0 3px var(--ok-soft);
+}
+.edc-verdict-fail {
+  color: var(--eps-deep);
+}
+.edc-verdict-fail::before {
+  background: var(--eps);
+  box-shadow: 0 0 0 3px var(--eps-soft);
+}
+.edc-verdict-searching {
+  color: var(--del-deep);
+}
+.edc-verdict-searching::before {
+  background: var(--del);
+  box-shadow: 0 0 0 3px var(--del-soft);
+  animation: pulse-soft 1s var(--ease-in-out) infinite;
+}
+
+.edc-metrics {
+  display: flex;
+  gap: 22px;
+  margin: 0;
+  flex-wrap: wrap;
+}
+
+.edc-metrics > div {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.edc-metrics dt {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--ink-faint);
+  font-weight: 600;
+}
+
+.edc-metrics dd {
+  margin: 0;
+  font-size: var(--step-0);
+  font-weight: 600;
+  color: var(--ink-strong);
+}
+
+@media (max-width: 720px) {
+  .edc-readout {
+    padding: 12px 15px;
+    gap: 12px;
+  }
+  .edc-metrics {
+    gap: 16px;
+  }
+  .edc-metrics dd {
+    font-size: var(--step--1);
+  }
+}

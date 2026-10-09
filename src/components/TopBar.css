@@ -1,0 +1,187 @@
+/* ============================================================
+   顶部导航
+   ============================================================ */
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(251, 249, 244, 0.82);
+  backdrop-filter: saturate(1.6) blur(12px);
+  -webkit-backdrop-filter: saturate(1.6) blur(12px);
+  border-bottom: 1px solid transparent;
+  transition:
+    border-color var(--t-base) var(--ease-out),
+    background var(--t-base) var(--ease-out),
+    box-shadow var(--t-base) var(--ease-out);
+}
+
+.topbar.is-scrolled {
+  border-bottom-color: var(--rule);
+  box-shadow: 0 6px 22px -16px rgba(22, 32, 46, 0.4);
+}
+
+.topbar-inner {
+  width: min(1320px, 100% - 40px);
+  margin: 0 auto;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* ---------- 品牌 ---------- */
+
+.topbar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  flex: none;
+}
+
+.topbar-mark {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 1px;
+  font-family: var(--font-math);
+  font-size: 1.06rem;
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1;
+  color: var(--ink-strong);
+  padding: 5px 9px;
+  border-radius: var(--r-xs);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--t-fast) var(--ease-out);
+}
+
+.topbar-brand:hover .topbar-mark {
+  box-shadow: var(--shadow-md);
+}
+
+.topbar-mark .mth:first-child {
+  color: var(--eps);
+}
+.topbar-mark .mth:last-child {
+  color: var(--del);
+}
+
+.topbar-mark-slash {
+  color: var(--rule-strong);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.86em;
+}
+
+.topbar-name {
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: -0.012em;
+  color: var(--ink-strong);
+}
+
+/* ---------- 导航链接 ---------- */
+
+.topbar-nav {
+  list-style: none;
+  display: flex;
+  gap: 2px;
+  margin: 0 auto 0 12px;
+  padding: 0;
+}
+
+.topbar-link {
+  position: relative;
+  height: 32px;
+  padding: 0 12px;
+  border-radius: var(--r-xs);
+  font-size: 0.83rem;
+  font-weight: 600;
+  color: var(--ink-muted);
+  letter-spacing: -0.004em;
+  transition:
+    color var(--t-fast) var(--ease-out),
+    background var(--t-fast) var(--ease-out);
+}
+
+.topbar-link:hover {
+  color: var(--ink-strong);
+  background: var(--surface-sunken);
+}
+
+.topbar-link.is-on {
+  color: var(--ink-strong);
+}
+
+.topbar-link.is-on::after {
+  content: '';
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 3px;
+  height: 2px;
+  border-radius: var(--r-pill);
+  background: var(--ink-strong);
+}
+
+/* ---------- 主行动 ---------- */
+
+.topbar-cta {
+  flex: none;
+  height: 33px;
+  padding: 0 15px;
+  border-radius: var(--r-sm);
+  background: var(--ink-strong);
+  color: var(--paper);
+  font-size: 0.81rem;
+  font-weight: 600;
+  letter-spacing: -0.004em;
+  transition:
+    background var(--t-fast) var(--ease-out),
+    box-shadow var(--t-fast) var(--ease-out),
+    transform var(--t-fast) var(--ease-out);
+}
+
+.topbar-cta:hover {
+  background: #1d2b3f;
+  box-shadow: var(--shadow-md);
+}
+
+.topbar-cta:active {
+  transform: translateY(1px);
+}
+
+/* ---------- 响应式 ---------- */
+
+@media (max-width: 860px) {
+  .topbar-inner {
+    width: calc(100% - 28px);
+    gap: 10px;
+  }
+  .topbar-name {
+    display: none;
+  }
+  .topbar-nav {
+    overflow-x: auto;
+    margin-left: auto;
+    scrollbar-width: none;
+  }
+  .topbar-nav::-webkit-scrollbar {
+    display: none;
+  }
+  .topbar-link {
+    padding: 0 9px;
+    font-size: 0.79rem;
+    white-space: nowrap;
+  }
+  .topbar-link.is-on::after {
+    left: 9px;
+    right: 9px;
+  }
+  .topbar-cta {
+    display: none;
+  }
+}

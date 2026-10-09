@@ -1,0 +1,401 @@
+/* ============================================================
+   通用 UI 原语：按钮 / 滑杆 / 分段控制 / 开关 / 题注
+   ============================================================ */
+
+/* ---------- 按钮 ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border-radius: var(--r-sm);
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: -0.004em;
+  line-height: 1;
+  padding: 0 14px;
+  height: 36px;
+  white-space: nowrap;
+  transition:
+    background var(--t-fast) var(--ease-out),
+    border-color var(--t-fast) var(--ease-out),
+    color var(--t-fast) var(--ease-out),
+    box-shadow var(--t-fast) var(--ease-out),
+    transform var(--t-fast) var(--ease-out);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+}
+
+.btn-sm {
+  height: 30px;
+  padding: 0 11px;
+  font-size: 0.79rem;
+}
+
+.btn.is-full {
+  width: 100%;
+}
+
+.btn-ico {
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+.btn-ico svg {
+  width: 15px;
+  height: 15px;
+}
+.btn-sm .btn-ico svg {
+  width: 13px;
+  height: 13px;
+}
+
+.btn-solid {
+  background: var(--ink-strong);
+  color: var(--paper);
+  border: 1px solid var(--ink-strong);
+}
+.btn-solid:hover:not(:disabled) {
+  background: #1d2b3f;
+  box-shadow: var(--shadow-md);
+}
+
+.btn-outline {
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--rule-strong);
+}
+.btn-outline:hover:not(:disabled) {
+  border-color: var(--ink-faint);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+.btn-outline.is-active {
+  border-color: var(--del);
+  color: var(--del-deep);
+  background: var(--del-soft);
+}
+
+.btn-del {
+  background: var(--del);
+  color: #fff;
+  border: 1px solid var(--del-deep);
+}
+.btn-del:hover:not(:disabled) {
+  background: var(--del-deep);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink-muted);
+  border: 1px solid transparent;
+  padding: 0 9px;
+}
+.btn-ghost:hover:not(:disabled) {
+  background: var(--surface-sunken);
+  color: var(--ink);
+  border-color: var(--rule);
+}
+
+/* ---------- 对数滑杆 ---------- */
+
+.lsl {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.lsl-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.lsl-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.005em;
+  color: var(--ink-muted);
+}
+
+.lsl-eps .lsl-label {
+  color: var(--eps-deep);
+}
+.lsl-del .lsl-label {
+  color: var(--del-deep);
+}
+
+.lsl-value {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--ink-strong);
+  background: var(--surface-sunken);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-xs);
+  padding: 1px 7px;
+}
+
+.lsl-track-wrap {
+  position: relative;
+  height: 22px;
+  display: flex;
+  align-items: center;
+}
+
+.lsl-track-wrap::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  height: 6px;
+  border-radius: var(--r-pill);
+  background: var(--paper-edge);
+  box-shadow: inset 0 1px 2px rgba(22, 32, 46, 0.09);
+}
+
+.lsl-fill {
+  position: absolute;
+  left: 0;
+  height: 6px;
+  border-radius: var(--r-pill) 0 0 var(--r-pill);
+  pointer-events: none;
+  transition: width 90ms linear;
+}
+
+.lsl-eps .lsl-fill {
+  background: linear-gradient(90deg, rgba(200, 56, 79, 0.5), var(--eps));
+}
+.lsl-del .lsl-fill {
+  background: linear-gradient(90deg, rgba(31, 111, 139, 0.5), var(--del));
+}
+
+.lsl-input {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin: 0;
+  background: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 22px;
+  cursor: grab;
+}
+
+.lsl-input:active {
+  cursor: grabbing;
+}
+
+.lsl-input::-webkit-slider-runnable-track {
+  height: 6px;
+  background: transparent;
+}
+.lsl-input::-moz-range-track {
+  height: 6px;
+  background: transparent;
+}
+
+.lsl-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2.5px solid var(--ink-muted);
+  box-shadow: var(--shadow-sm);
+  margin-top: -5.5px;
+  transition:
+    border-color var(--t-fast) var(--ease-out),
+    transform var(--t-fast) var(--ease-out);
+}
+
+.lsl-input::-moz-range-thumb {
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2.5px solid var(--ink-muted);
+  box-shadow: var(--shadow-sm);
+  transition:
+    border-color var(--t-fast) var(--ease-out),
+    transform var(--t-fast) var(--ease-out);
+}
+
+.lsl-eps .lsl-input::-webkit-slider-thumb {
+  border-color: var(--eps);
+}
+.lsl-eps .lsl-input::-moz-range-thumb {
+  border-color: var(--eps);
+}
+.lsl-del .lsl-input::-webkit-slider-thumb {
+  border-color: var(--del);
+}
+.lsl-del .lsl-input::-moz-range-thumb {
+  border-color: var(--del);
+}
+
+.lsl-input:hover::-webkit-slider-thumb,
+.lsl-input:focus-visible::-webkit-slider-thumb {
+  transform: scale(1.14);
+}
+.lsl-input:hover::-moz-range-thumb,
+.lsl-input:focus-visible::-moz-range-thumb {
+  transform: scale(1.14);
+}
+
+.lsl-hint {
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  line-height: 1.5;
+}
+
+/* ---------- 分段控制 ---------- */
+
+.seg {
+  display: inline-flex;
+  padding: 3px;
+  gap: 2px;
+  background: var(--surface-sunken);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-sm);
+}
+
+.seg-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 12px;
+  border-radius: var(--r-xs);
+  font-size: 0.79rem;
+  font-weight: 600;
+  color: var(--ink-muted);
+  line-height: 1;
+  transition:
+    background var(--t-fast) var(--ease-out),
+    color var(--t-fast) var(--ease-out),
+    box-shadow var(--t-fast) var(--ease-out);
+}
+
+.seg-btn:hover {
+  color: var(--ink);
+}
+
+.seg-btn.is-on {
+  background: var(--surface);
+  color: var(--ink-strong);
+  box-shadow: var(--shadow-sm);
+}
+
+.seg-ico {
+  display: grid;
+  place-items: center;
+}
+.seg-ico svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ---------- 开关 ---------- */
+
+.tgl {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.tgl-box {
+  flex: none;
+  width: 34px;
+  height: 20px;
+  border-radius: var(--r-pill);
+  background: var(--paper-edge);
+  border: 1px solid var(--rule-strong);
+  position: relative;
+  transition:
+    background var(--t-base) var(--ease-out),
+    border-color var(--t-base) var(--ease-out);
+  margin-top: 1px;
+}
+
+.tgl-knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--t-base) var(--ease-out);
+}
+
+.tgl.is-on .tgl-box {
+  background: var(--del);
+  border-color: var(--del-deep);
+}
+
+.tgl.is-on .tgl-knob {
+  transform: translateX(14px);
+}
+
+.tgl-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.tgl-label {
+  font-size: 0.83rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+.tgl-hint {
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  line-height: 1.5;
+}
+
+/* ---------- 题注 ---------- */
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.71rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.eyebrow-ico {
+  display: grid;
+  place-items: center;
+}
+.eyebrow-ico svg {
+  width: 14px;
+  height: 14px;
+}
+
+.eyebrow-eps {
+  color: var(--eps-deep);
+}
+.eyebrow-del {
+  color: var(--del-deep);
+}
+.eyebrow-ok {
+  color: var(--ok);
+}

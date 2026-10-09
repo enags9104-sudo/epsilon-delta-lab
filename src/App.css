@@ -1,0 +1,46 @@
+/* ============================================================
+   应用外壳
+   ============================================================ */
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+}
+
+.app main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* 交替背景带：让长页面有节奏变化 */
+.band {
+  position: relative;
+}
+
+.band::before,
+.band::after {
+  content: '';
+  position: absolute;
+  inset-inline: calc(50% - 50vw);
+  pointer-events: none;
+}
+
+.band::before {
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--rule), transparent);
+}
+
+.band-tint {
+  background:
+    linear-gradient(180deg, transparent, rgba(31, 111, 139, 0.032) 12%, rgba(31, 111, 139, 0.032) 88%, transparent);
+}
+
+/* 页面底部留白 */
+.app main::after {
+  content: '';
+  display: block;
+  height: 1px;
+}

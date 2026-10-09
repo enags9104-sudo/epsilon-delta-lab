@@ -1,0 +1,425 @@
+/* ============================================================
+   找茬挑战
+   ============================================================ */
+
+.chg {
+  width: min(940px, 100% - 40px);
+  margin: 0 auto;
+  padding: 96px 0 24px;
+}
+
+.chg-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.chg-head-text {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  max-width: 640px;
+}
+
+.chg-title {
+  font-size: var(--step-3);
+  letter-spacing: -0.025em;
+}
+
+.chg-lede {
+  font-size: var(--step-0);
+  color: var(--ink-muted);
+  line-height: 1.7;
+}
+
+/* ---------- 记分牌 ---------- */
+
+.chg-score {
+  display: flex;
+  gap: 10px;
+  flex: none;
+}
+
+.chg-score-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 10px 18px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  min-width: 84px;
+}
+
+.chg-score-num {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ink-strong);
+}
+
+.chg-score-den {
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+  font-weight: 600;
+}
+
+.chg-score-streak {
+  color: var(--eps);
+}
+
+.chg-score-lbl {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+/* ---------- 题卡 ---------- */
+
+.chg-card {
+  padding: 30px 32px 26px;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.chg-qhead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.chg-qleft {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.chg-qno {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--ink-faint);
+  padding: 4px 9px;
+  border-radius: var(--r-xs);
+  background: var(--surface-sunken);
+  border: 1px solid var(--rule);
+}
+
+.chg-qfn {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.chg-qfn-label {
+  font-size: var(--step-1);
+  font-weight: 600;
+  color: var(--ink-strong);
+}
+
+.chg-qfn-a {
+  font-size: 0.77rem;
+  color: var(--ink-faint);
+}
+
+.chg-eps-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 15px 7px 12px;
+  border-radius: var(--r-pill);
+  background: var(--eps-soft);
+  box-shadow: inset 0 0 0 1px var(--eps-line);
+  flex: none;
+}
+
+.chg-eps-badge-k {
+  font-size: 1.15rem;
+  color: var(--eps-deep);
+}
+
+.chg-eps-badge-v {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--eps-deep);
+}
+
+.chg-prompt {
+  font-size: var(--step-1);
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+/* ---------- 选项 ---------- */
+
+.chg-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 9px;
+}
+
+.chg-option {
+  grid-column: auto;
+  display: grid;
+  grid-template-columns: 34px 1fr 22px;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  text-align: left;
+  transition:
+    border-color var(--t-fast) var(--ease-out),
+    background var(--t-fast) var(--ease-out),
+    transform var(--t-fast) var(--ease-out),
+    box-shadow var(--t-fast) var(--ease-out);
+}
+
+.chg-option:hover:not(:disabled) {
+  border-color: var(--del);
+  background: var(--del-soft);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.chg-option:disabled {
+  cursor: default;
+}
+
+.chg-option-key {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--r-sm);
+  background: var(--surface-sunken);
+  border: 1px solid var(--rule);
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--ink-muted);
+  transition:
+    background var(--t-fast) var(--ease-out),
+    color var(--t-fast) var(--ease-out);
+}
+
+.chg-option:hover:not(:disabled) .chg-option-key {
+  background: var(--surface);
+  color: var(--del-deep);
+  border-color: var(--del-line);
+}
+
+.chg-option-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.chg-option-val {
+  font-size: 0.94rem;
+  font-weight: 600;
+  color: var(--ink-strong);
+}
+
+.chg-option-ratio {
+  font-size: 0.7rem;
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.chg-option-mark {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+}
+
+.chg-option-mark svg {
+  width: 18px;
+  height: 18px;
+}
+
+.chg-option.is-right {
+  border-color: var(--ok);
+  background: var(--ok-soft);
+}
+.chg-option.is-right .chg-option-key {
+  background: var(--ok);
+  color: #fff;
+  border-color: var(--ok);
+}
+.chg-option.is-right .chg-option-mark {
+  color: var(--ok);
+}
+
+.chg-option.is-wrong {
+  border-color: var(--eps);
+  background: var(--eps-soft);
+}
+.chg-option.is-wrong .chg-option-key {
+  background: var(--eps);
+  color: #fff;
+  border-color: var(--eps);
+}
+.chg-option.is-wrong .chg-option-mark {
+  color: var(--eps-deep);
+}
+
+.chg-option.is-dim {
+  opacity: 0.44;
+}
+
+.chg-option-none {
+  grid-column: 1 / -1;
+  border-style: dashed;
+}
+
+.chg-option-none .chg-option-body {
+  flex-direction: row;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ---------- 解析 ---------- */
+
+.chg-explain {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 18px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--rule);
+  animation: rise-in var(--t-base) var(--ease-out);
+}
+
+.chg-explain.is-ok {
+  background: var(--ok-soft);
+  border-color: rgba(47, 125, 93, 0.3);
+}
+
+.chg-explain.is-no {
+  background: var(--eps-soft);
+  border-color: var(--eps-line);
+}
+
+.chg-explain-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.83rem;
+  font-weight: 700;
+}
+
+.chg-explain-head svg {
+  width: 17px;
+  height: 17px;
+}
+
+.chg-explain.is-ok .chg-explain-head {
+  color: var(--ok);
+}
+.chg-explain.is-no .chg-explain-head {
+  color: var(--eps-deep);
+}
+
+.chg-explain p {
+  font-size: 0.86rem;
+  line-height: 1.68;
+  color: var(--ink);
+}
+
+/* ---------- 底部 ---------- */
+
+.chg-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+  padding-top: 4px;
+}
+
+.chg-foot-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.77rem;
+  color: var(--ink-faint);
+  max-width: 46ch;
+}
+
+.chg-foot-hint svg {
+  width: 15px;
+  height: 15px;
+  flex: none;
+  color: var(--warn);
+}
+
+.chg-foot-btns {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+/* ---------- 响应式 ---------- */
+
+@media (max-width: 860px) {
+  .chg {
+    width: calc(100% - 28px);
+    padding-top: 68px;
+  }
+  .chg-card {
+    padding: 24px 20px 20px;
+  }
+  .chg-options {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .chg-head {
+    gap: 18px;
+  }
+  .chg-score-item {
+    padding: 8px 13px;
+    min-width: 70px;
+  }
+  .chg-score-num {
+    font-size: 1.25rem;
+  }
+  .chg-option {
+    grid-template-columns: 30px 1fr 20px;
+    gap: 10px;
+    padding: 12px 13px;
+  }
+  .chg-option-key {
+    width: 30px;
+    height: 30px;
+    font-size: 0.8rem;
+  }
+  .chg-foot-btns {
+    width: 100%;
+  }
+  .chg-foot-btns .btn {
+    flex: 1;
+  }
+}

@@ -1,0 +1,207 @@
+/* ============================================================
+   页脚
+   ============================================================ */
+
+.ft {
+  margin-top: 92px;
+  border-top: 1px solid var(--rule);
+  background:
+    linear-gradient(180deg, transparent, rgba(31, 111, 139, 0.028)),
+    var(--paper-deep);
+}
+
+.ft-inner {
+  width: min(1180px, 100% - 40px);
+  margin: 0 auto;
+  padding: 60px 0 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 46px;
+}
+
+.ft-recap {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ft-title {
+  font-size: var(--step-2);
+  letter-spacing: -0.022em;
+}
+
+.ft-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.ft-card {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 20px 20px 22px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform var(--t-base) var(--ease-out),
+    box-shadow var(--t-base) var(--ease-out);
+}
+
+.ft-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.ft-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+}
+
+.ft-card-eps::before {
+  background: var(--eps);
+}
+.ft-card-del::before {
+  background: var(--del);
+}
+.ft-card-ink::before {
+  background: var(--ink-strong);
+}
+
+.ft-card-k {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  min-height: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.ft-card-k-ink {
+  font-family: var(--font-mono);
+  font-size: 0.94rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink-strong);
+}
+
+.ft-card-eps .ft-card-k {
+  color: var(--eps);
+}
+.ft-card-del .ft-card-k {
+  color: var(--del);
+}
+
+.ft-card-title {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: -0.008em;
+  color: var(--ink-strong);
+}
+
+.ft-card-body {
+  font-size: 0.82rem;
+  line-height: 1.66;
+  color: var(--ink-muted);
+}
+
+/* ---------- 元信息 ---------- */
+
+.ft-meta {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 30px;
+  flex-wrap: wrap;
+  padding-top: 26px;
+  border-top: 1px solid var(--rule-strong);
+}
+
+.ft-note {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  max-width: 62ch;
+}
+
+.ft-note svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  margin-top: 2px;
+  color: var(--ink-faint);
+}
+
+.ft-note p {
+  font-size: 0.76rem;
+  line-height: 1.68;
+  color: var(--ink-faint);
+}
+
+.ft-sign {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex: none;
+}
+
+.ft-sign-mark {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+  font-family: var(--font-math);
+  font-size: 1.1rem;
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1;
+}
+
+.ft-sign-mark .mth:first-child {
+  color: var(--eps);
+}
+.ft-sign-mark .mth:last-child {
+  color: var(--del);
+}
+
+.ft-sign-slash {
+  color: var(--rule-strong);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.ft-sign-text {
+  font-size: 0.76rem;
+  color: var(--ink-muted);
+  letter-spacing: -0.003em;
+}
+
+/* ---------- 响应式 ---------- */
+
+@media (max-width: 860px) {
+  .ft {
+    margin-top: 64px;
+  }
+  .ft-inner {
+    width: calc(100% - 28px);
+    padding: 44px 0 30px;
+    gap: 34px;
+  }
+  .ft-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .ft-meta {
+    flex-direction: column;
+    gap: 18px;
+  }
+}
